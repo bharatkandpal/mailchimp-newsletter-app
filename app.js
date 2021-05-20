@@ -1,7 +1,9 @@
 const express = require('express')
 const request = require('request')
 const https = require('https')
-
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+  }
 const app = express()
 app.use(express.static("./"))
 app.use(express.urlencoded({ extended: true }))
@@ -62,8 +64,8 @@ app.post("/failure",(req,res)=>{
     res.redirect("/home")
 })
 
-app.listen(3005, () => {
-    console.log("listening on port 3005");
+app.listen(process.env.PORT, () => {
+    console.log("listening on port: "+ process.env.PORT+" "+process.env.NODE_ENV);
 })
 
 
